@@ -1,0 +1,5 @@
+select date(m1.gameCreation) as t_day, avg(deaths) as avg_deaths_overalls, count(*)/141 as avg_games_overall
+from match_player t1
+inner join (select * from match_list where queueid = 420 and badMatch = 0 and gameDuration > 900 and (gameCreation between ('2018-9-15') and ('2018-11-24'))) m1 on t1.matchid = m1.matchid
+group by date(m1.gameCreation)
+order by date(m1.gameCreation)

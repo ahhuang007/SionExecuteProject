@@ -1,0 +1,6 @@
+select t1.matchid, t1.win, t1.championid, c.name as champion, m1.matchRankScore as rank, t2.killerId as killer_id, t2.timestamp, m1.gameCreation as game_date
+from match_player t1
+inner join (select * from match_list where queueid = 420 and badMatch = 0 and gameDuration > 900 and (gameCreation between ('2018-9-15') and ('2018-11-24')) and mod(matchid, split_num) = snafu) m1 on t1.matchid = m1.matchid
+inner join match_event_kills t2 on t2.victimid = t1.participantid and t2.matchid = m1.matchid and eventtype = 'CHAMPION_KILL' and t1.championid = 14
+inner join champions c on t1.championid = c.championid
+order by name
